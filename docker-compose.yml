@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: weather-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "8800:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  weather-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: weather-app
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Inside Compose, use the PostgreSQL service name and container port.
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      TZ: Europe/Berlin
+      APP_TIMEZONE: Europe/Berlin
+      LATITUDE: ${LATITUDE:-37.9838}
+      LONGITUDE: ${LONGITUDE:-23.7278}
+      LOG_FILE: /var/log/weather/weather.log
+      MAX_ATTEMPTS: ${MAX_ATTEMPTS:-3}
+      RETRY_BASE_SECONDS: ${RETRY_BASE_SECONDS:-60}
+      RUN_ON_START: ${RUN_ON_START:-false}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./logs:/var/log/weather
+      - postgres_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+
+
+volumes:
+  postgres_data:

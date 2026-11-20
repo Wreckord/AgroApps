@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "openmeteo": "^1.2.3",
+    "pg": "^8.23.1"
+  },
+  "name": "agro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "weather:fetch": "tsx read_openmeteo.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/pg": "^8.23.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
