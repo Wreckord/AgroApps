@@ -1,6 +1,5 @@
 # AgroApps
-Installation and setup: Docker and Docker Compose needed, as well as credentials on an .env file. Example is provided in this repo.
-    To build the app, run 'docker compose up -d --build'. To test it immediately (since it runs every day at midnight) run 'docker compose exec weather-app php app/php/scheduler.php --once'
+Installation and setup: Open Meteo requests with npm and Docker and Docker Compose needed, as well as credentials on an .env file. Example is provided in this repo. To build the app, run 'docker compose up -d --build'. To test it immediately (since it runs every day at midnight) run 'docker compose exec weather-app php app/php/scheduler.php --once'
 
 Implementation Choices: Main app runs with PHP on Docker Compose, while the communication with the APIs and the PostgreSQL database is done through a TypeScript file, using the APIs' connection methods. PHP calls upon the TS file every midnight and saves the data on the database. The decision to use TypeScript was a) due to familiarity with the language, b) example scripts provided by the Open Meteo API, c) no troubleshooting issues during data insertion.
 
