@@ -7,4 +7,4 @@ Incomplete Requirements: Connection with WeatherAPI was ommited due to time cons
 
 Next Steps: Optimization of the connection functions between the TypeScript file and the database, in terms of effectiveness and readability, and also connection of this app with a Frontend framework.
 
-Additional Notes: AI was used to help with the PHP part of the app due to low familiarity with the language and time constraints. Issues with that can be fixed in time.
+Additional Notes: AI was used to help with the PHP part of the app due to low familiarity with the language and time constraints. Issues with that can be fixed in time. ALSO LATE NOTE: I made a mistake with the hourly precipitation data. Instead of uploading the raw data, I uploaded the probability. 
